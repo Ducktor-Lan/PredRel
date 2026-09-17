@@ -1,0 +1,34 @@
+# Evidence / data / caches (reproducible artifacts, not source)
+reports/evidence/
+evidence/
+runs/
+uploads/
+cache/
+checkpoints/
+*.npz
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Secrets (never commit; server holds TABPFN_TOKEN in its own environment)
+.env
+*.pem
+id_rsa*
+*.key
+*token*
+
+# Local deployment config (copy configs/server_windows.example.yaml to
+# configs/server_windows.yaml and fill in real values; never commit it)
+configs/server_windows.yaml

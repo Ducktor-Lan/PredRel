@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "manifest_id": "predrel-student-v1",
+  "purpose": "Frozen Week 8 main-model-v1 benchmark. Single authorized route from Week 7 (Route B: Static Directed Query/Key dual-space with a simple context adapter first; DeepSets NOT enabled). Reuses the exact nine dataset content pins and split contract from the completed Week 6 full experiment. Student distills teacher true-class beta (beta-KL first) plus raw-score ranking (second). No dataset may be added, removed, or replaced after inspecting any Week 8 readout. Hyperparameters and the descriptive completion gate were frozen before any Week 8 Teacher fit.",
+  "preprocessing": {
+    "feature_policy": "numeric-only float64; reject non-finite values; no imputation, feature selection, or target-derived transform",
+    "label_policy": "encode observed target labels deterministically after loading; support labels may enter Teacher contexts; query labels never enter a Teacher fit",
+    "sample_id_policy": "source row index is retained as dataset_id:row:<index>"
+  },
+  "datasets": [
+    {
+      "dataset_id": "sklearn_breast_cancer",
+      "source": {
+        "kind": "sklearn_builtin",
+        "loader": "load_breast_cancer",
+        "source_version": "scikit-learn-1.9.1"
+      },
+      "expected_rows": 569,
+      "expected_features": 30,
+      "expected_classes": 2,
+      "expected_content_sha256": "17a561dca8f46aa20420dab2e09abad32c3d16e010bbce76d8ddc85a9db250d7"
+    },
+    {
+      "dataset_id": "sklearn_wine",
+      "source": {
+        "kind": "sklearn_builtin",
+        "loader": "load_wine",
+        "source_version": "scikit-learn-1.9.1"
+      },
+      "expected_rows": 178,
+      "expected_features": 13,
+      "expected_classes": 3,
+      "expected_content_sha256": "12993669681f41243c08c8ac3f9a2d983fd1fb158f9e0961fd221d4ea55839d1"
+    },
+    {
+      "dataset_id": "sklearn_digits",
+      "source": {
+        "kind": "sklearn_builtin",
+        "loader": "load_digits",
+        "source_version": "scikit-learn-1.9.1"
+      },
+      "expected_rows": 1797,
+      "expected_features": 64,
+      "expected_classes": 10,
+      "expected_content_sha256": "9c15de2983c4a7fb75453895d543ddfa8edc001c851fc0957b899996204e61db"
+    },
+    {
+      "dataset_id": "openml_diabetes_37_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 37,
+        "name": "diabetes",
+        "version": 1,
+        "openml_md5": "3cbaa3e54586aa88cf6aacb4033e4470"
+      },
+      "expected_rows": 768,
+      "expected_features": 8,
+      "expected_classes": 2,
+      "expected_content_sha256": "f933e03cd5f2c13a0b6a72be9070b7fe6a651b6b9efc3f0039c852ea97e10166"
+    },
+    {
+      "dataset_id": "openml_vehicle_54_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 54,
+        "name": "vehicle",
+        "version": 1,
+        "openml_md5": "fbba18157b188f309d772f9ca4e578f5"
+      },
+      "expected_rows": 846,
+      "expected_features": 18,
+      "expected_classes": 4,
+      "expected_content_sha256": "23949690de5b80f31365c9bb90f3d83f1ba09d43418f803fc2ac93396b969e12"
+    },
+    {
+      "dataset_id": "openml_spambase_44_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 44,
+        "name": "spambase",
+        "version": 1,
+        "openml_md5": "d9ace01aeac3461e326a8e1b2d53fd84"
+      },
+      "expected_rows": 4601,
+      "expected_features": 57,
+      "expected_classes": 2,
+      "expected_content_sha256": "6a5c7203096f8d575c3e35f5461ac15aa41c1b5b79903d5e8bf5a73ce01eefbf"
+    },
+    {
+      "dataset_id": "openml_blood_1464_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 1464,
+        "name": "blood-transfusion-service-center",
+        "version": 1,
+        "openml_md5": "c3242468edab8c2e7a907674122dc851"
+      },
+      "expected_rows": 748,
+      "expected_features": 4,
+      "expected_classes": 2,
+      "expected_content_sha256": "668275fcd4aa505c761cbde0477f12c01ad830bf986c3b731dca4813385a8167",
+      "arm": "extension-imbalance"
+    },
+    {
+      "dataset_id": "openml_ionosphere_59_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 59,
+        "name": "ionosphere",
+        "version": 1,
+        "openml_md5": "23dd3c8b5693e2848901fd1a0248ef42"
+      },
+      "expected_rows": 351,
+      "expected_features": 34,
+      "expected_classes": 2,
+      "expected_content_sha256": "4e67aa079e1f0151f42fbd1603a64aabd6ed5f0c710460474f7bbabfcfe59271",
+      "arm": "extension-highdim-small"
+    },
+    {
+      "dataset_id": "openml_segment_40984_v3",
+      "source": {
+        "kind": "openml",
+        "data_id": 40984,
+        "name": "segment",
+        "version": 3,
+        "openml_md5": "dc39e654f66a5a4007012e74ef3f1435"
+      },
+      "expected_rows": 2310,
+      "expected_features": 18,
+      "expected_classes": 7,
+      "expected_content_sha256": "692a6722ffdc1096578be22c1a6fe1bad9f67d94d44c3af191b4dd32d14f56dc",
+      "arm": "extension-multi-cluster"
+    }
+  ],
+  "split": {
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "train_fraction": 0.8,
+    "max_support_size": 512,
+    "max_query_size": 128,
+    "min_support_per_class": 20,
+    "min_query_per_class": 8,
+    "selection": "deterministic stratified holdout without replacement; query rows are first sampled from the 20 percent holdout, and support rows are sampled only from the remaining train pool"
+  },
+  "smoke": {
+    "dataset_id": "sklearn_breast_cancer",
+    "seed": 17,
+    "max_support_size": 64,
+    "max_query_size": 24
+  },
+  "teacher": {
+    "n_estimators": 1,
+    "device": "cuda",
+    "model_cache_dir": "<MODEL_CACHE_DIR>"
+  },
+  "student": {
+    "route": "Route B: Static Directed with simple context adapter first (Week 7 authorization)",
+    "backbone": "numerical standardized MLP (support-only mean/variance; queries reuse frozen support statistics); hidden 128, h 128 (plan Section 8)",
+    "hidden_dims": [
+      128
+    ],
+    "hidden_activation": "relu",
+    "h_dim": 128,
+    "qk_dim": 64,
+    "score": "s_ij = q_i . k_j / sqrt(64); no q/k normalization in v1",
+    "score_temperature": 1.0,
+    "standardization": "standardize with pseudo-support mean/variance only; pseudo-queries, full support and holdout queries reuse those frozen statistics",
+    "optimizer": "adam",
+    "learning_rate": 0.001,
+    "epochs": 50,
+    "smoke_epochs": 5,
+    "batch": "full-batch over pseudo-queries",
+    "seed": 0,
+    "train_device": "cpu",
+    "train_device_rationale": "training sets are tiny (at most 64 pseudo-queries); CPU training is fast and deterministic with fixed seeds, while the Teacher still runs on CUDA",
+    "pseudo_query_fraction": 0.2,
+    "max_pseudo_queries": 64,
+    "min_pseudo_queries": 8,
+    "pseudo_query_seed": 20260914,
+    "pseudo_query_selection": "label-blind seeded choice without replacement from frozen support order, sorted back into support order",
+    "variants": [
+      "static",
+      "adapter"
+    ]
+  },
+  "adapter": {
+    "form": "simple mean-pool additive adapter (NOT DeepSets)",
+    "context_vector": "c = mean of support h over the scored support set",
+    "equations": [
+      "q'_i = q_i + A_q c",
+      "k'_j = k_j + A_k c"
+    ],
+    "adapter_dim": "A_q, A_k: 128 -> 64, no bias",
+    "deep_sets_enabled": false,
+    "deep_sets_note": "DeepSets context encoder stays disabled until the adapter is shown insufficient (Week 7 hand-off; Week 12 robustness at the earliest)"
+  },
+  "losses": {
+    "epsilon": 1e-12,
+    "primary": "beta-KL: KL(teacher true-class beta || softmax(student true-class scores)) averaged over train pseudo-queries",
+    "secondary": "pairwise logistic ranking on teacher mean raw scores (true-class block): mean softplus(-sign(dt)*ds) over pairs with |dt| > epsilon",
+    "lambda_ranking": 0.5,
+    "total": "KL + 0.5 * ranking; frozen for v1, ablated in Week 9",
+    "train_label_use": "train pseudo-query labels select the true-class block only (analogous to SupCon positives); frozen holdout query labels never enter training"
+  },
+  "supcon_baseline": {
+    "purpose": "matched-budget symmetric baseline: same optimizer/epochs/learning-rate/seed budget and same 64-dim output width; backbone width matched at 128; heads differ by design (symmetric cosine vs directed Q/K), so this is budget-matched, not weight-identical",
+    "hidden_dims": [
+      128
+    ],
+    "embedding_dim": 64,
+    "temperature": 0.07,
+    "learning_rate": 0.001,
+    "epochs": 50,
+    "smoke_epochs": 5,
+    "batch_size": 256,
+    "seed": 0,
+    "train_device": "cpu",
+    "standardization": "standardize with support mean and variance only; query rows use the frozen support statistics",
+    "positives": "same-class in-batch samples without input augmentation; anchors without a positive are excluded from the loss"
+  },
+  "evaluation": {
+    "support": "full frozen support",
+    "queries": "every frozen holdout query row",
+    "teacher_target_for_eval": "eval-fit true-class beta block and eval-fit mean raw true-class block",
+    "ks": [
+      1,
+      5,
+      10
+    ],
+    "metrics": [
+      "teacher_topk_recall@1/5/10 (student vs teacher true-class top-K)",
+      "spearman(student scores, teacher beta) per query",
+      "label top-1/top-5 hit rate over full support (labels for metric only)"
+    ],
+    "seed_aggregation": "mean over eval queries",
+    "dataset_aggregation": "median over seeds 17/29/43",
+    "global_summary": "mean over the nine frozen datasets (descriptive only)",
+    "leakage_boundary": "student training sees pseudo-support/pseudo-query features and train-split labels only; every eval Teacher fit receives support features, support labels, and holdout query features alone; holdout query labels are released only for metric computation"
+  },
+  "gate": {
+    "type": "descriptive-completion",
+    "decision": "student_v1_complete",
+    "rule": "technical PASS requires every frozen dataset/seed executed, finite metrics, recomputable profiles, and intact provenance; the gate makes no route claim and moves no threshold",
+    "recommendation": "STUDENT_V1_COMPLETE Proceed to Week 9 target/loss/dimension ablations"
+  }
+}

@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "manifest_id": "predrel-benchmark-v1",
+  "purpose": "Frozen Week 10 formal benchmark (plan Section 10): the nine Week 8/Week 9 frozen dataset contents verbatim plus eleven pre-registered extension datasets. Unifies eight methods (raw/PCA/MLP/SupCon/hidden/readout-profile/beta-rank student/SupCon+student fusion) under one frozen split contract, one Teacher setting, one budget, and one evaluation/aggregation contract. No dataset may be added, removed, or replaced after inspecting any Week 10 readout. Methods, hyperparameters and the descriptive completion gate were frozen before any Week 10 Teacher fit.",
+  "preprocessing": {
+    "feature_policy": "numeric-only float64; reject non-finite values; no imputation, feature selection, or target-derived transform",
+    "label_policy": "encode observed target labels deterministically after loading; support labels may enter Teacher contexts; query labels never enter a Teacher fit",
+    "sample_id_policy": "source row index is retained as dataset_id:row:<index>"
+  },
+  "datasets": [
+    {
+      "dataset_id": "sklearn_breast_cancer",
+      "source": {
+        "kind": "sklearn_builtin",
+        "loader": "load_breast_cancer",
+        "source_version": "scikit-learn-1.9.1"
+      },
+      "expected_rows": 569,
+      "expected_features": 30,
+      "expected_classes": 2,
+      "expected_content_sha256": "17a561dca8f46aa20420dab2e09abad32c3d16e010bbce76d8ddc85a9db250d7"
+    },
+    {
+      "dataset_id": "sklearn_wine",
+      "source": {
+        "kind": "sklearn_builtin",
+        "loader": "load_wine",
+        "source_version": "scikit-learn-1.9.1"
+      },
+      "expected_rows": 178,
+      "expected_features": 13,
+      "expected_classes": 3,
+      "expected_content_sha256": "12993669681f41243c08c8ac3f9a2d983fd1fb158f9e0961fd221d4ea55839d1"
+    },
+    {
+      "dataset_id": "sklearn_digits",
+      "source": {
+        "kind": "sklearn_builtin",
+        "loader": "load_digits",
+        "source_version": "scikit-learn-1.9.1"
+      },
+      "expected_rows": 1797,
+      "expected_features": 64,
+      "expected_classes": 10,
+      "expected_content_sha256": "9c15de2983c4a7fb75453895d543ddfa8edc001c851fc0957b899996204e61db"
+    },
+    {
+      "dataset_id": "openml_diabetes_37_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 37,
+        "name": "diabetes",
+        "version": 1,
+        "openml_md5": "3cbaa3e54586aa88cf6aacb4033e4470"
+      },
+      "expected_rows": 768,
+      "expected_features": 8,
+      "expected_classes": 2,
+      "expected_content_sha256": "f933e03cd5f2c13a0b6a72be9070b7fe6a651b6b9efc3f0039c852ea97e10166"
+    },
+    {
+      "dataset_id": "openml_vehicle_54_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 54,
+        "name": "vehicle",
+        "version": 1,
+        "openml_md5": "fbba18157b188f309d772f9ca4e578f5"
+      },
+      "expected_rows": 846,
+      "expected_features": 18,
+      "expected_classes": 4,
+      "expected_content_sha256": "23949690de5b80f31365c9bb90f3d83f1ba09d43418f803fc2ac93396b969e12"
+    },
+    {
+      "dataset_id": "openml_spambase_44_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 44,
+        "name": "spambase",
+        "version": 1,
+        "openml_md5": "d9ace01aeac3461e326a8e1b2d53fd84"
+      },
+      "expected_rows": 4601,
+      "expected_features": 57,
+      "expected_classes": 2,
+      "expected_content_sha256": "6a5c7203096f8d575c3e35f5461ac15aa41c1b5b79903d5e8bf5a73ce01eefbf"
+    },
+    {
+      "dataset_id": "openml_blood_1464_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 1464,
+        "name": "blood-transfusion-service-center",
+        "version": 1,
+        "openml_md5": "c3242468edab8c2e7a907674122dc851"
+      },
+      "expected_rows": 748,
+      "expected_features": 4,
+      "expected_classes": 2,
+      "expected_content_sha256": "668275fcd4aa505c761cbde0477f12c01ad830bf986c3b731dca4813385a8167",
+      "arm": "extension-imbalance"
+    },
+    {
+      "dataset_id": "openml_ionosphere_59_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 59,
+        "name": "ionosphere",
+        "version": 1,
+        "openml_md5": "23dd3c8b5693e2848901fd1a0248ef42"
+      },
+      "expected_rows": 351,
+      "expected_features": 34,
+      "expected_classes": 2,
+      "expected_content_sha256": "4e67aa079e1f0151f42fbd1603a64aabd6ed5f0c710460474f7bbabfcfe59271",
+      "arm": "extension-highdim-small"
+    },
+    {
+      "dataset_id": "openml_segment_40984_v3",
+      "source": {
+        "kind": "openml",
+        "data_id": 40984,
+        "name": "segment",
+        "version": 3,
+        "openml_md5": "dc39e654f66a5a4007012e74ef3f1435"
+      },
+      "expected_rows": 2310,
+      "expected_features": 18,
+      "expected_classes": 7,
+      "expected_content_sha256": "692a6722ffdc1096578be22c1a6fe1bad9f67d94d44c3af191b4dd32d14f56dc",
+      "arm": "extension-multi-cluster"
+    },
+    {
+      "dataset_id": "openml_iris_61_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 61,
+        "name": "iris",
+        "version": 1,
+        "openml_md5": "ad484452702105cbf3d30f8deaba39a9"
+      },
+      "expected_rows": 150,
+      "expected_features": 4,
+      "expected_classes": 3,
+      "expected_content_sha256": "79ef5d52ac3c926b9e62289b6eb0fd980ee39fcdb3a13419c89d491ace5db550"
+    },
+    {
+      "dataset_id": "openml_balance-scale_11_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 11,
+        "name": "balance-scale",
+        "version": 1,
+        "openml_md5": "76938608d472f620c170cef9c8c1fa65"
+      },
+      "expected_rows": 625,
+      "expected_features": 4,
+      "expected_classes": 3,
+      "expected_content_sha256": "4ad25426015e1566bb4fe9f29a6dab9602cc8c0949a07a0f47ec3a36ca0e951d"
+    },
+    {
+      "dataset_id": "openml_banknote_1462_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 1462,
+        "name": "banknote-authentication",
+        "version": 1,
+        "openml_md5": "baa2dc5b745775a943ebeb9c276401f8"
+      },
+      "expected_rows": 1372,
+      "expected_features": 4,
+      "expected_classes": 2,
+      "expected_content_sha256": "9dad1e7e92f58b2a8dd81604aaf920a4d2134dce1a5dee2c0b43971d881325bc"
+    },
+    {
+      "dataset_id": "openml_mfeat-fourier_14_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 14,
+        "name": "mfeat-fourier",
+        "version": 1,
+        "openml_md5": "498da46a7c832efe8914bf52abdfb87b"
+      },
+      "expected_rows": 2000,
+      "expected_features": 76,
+      "expected_classes": 10,
+      "expected_content_sha256": "6f5ed24a04d249897ca43700c8ccf71d96ef93f3be0d11ce7d4891a94c9b1d14",
+      "arm": "extension-highdim"
+    },
+    {
+      "dataset_id": "openml_mfeat-factors_12_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 12,
+        "name": "mfeat-factors",
+        "version": 1,
+        "openml_md5": "2c55b6bb1ad6eaad86d6e6bc0a1d4e1b"
+      },
+      "expected_rows": 2000,
+      "expected_features": 216,
+      "expected_classes": 10,
+      "expected_content_sha256": "3e78413123f4b30571e18e8f5721f6096c50f566b5343c574a44f9ab9d97c47f",
+      "arm": "extension-highdim"
+    },
+    {
+      "dataset_id": "openml_optdigits_28_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 28,
+        "name": "optdigits",
+        "version": 1,
+        "openml_md5": "d9d357ab8cfb6732853109e472d9cfce"
+      },
+      "expected_rows": 5620,
+      "expected_features": 64,
+      "expected_classes": 10,
+      "expected_content_sha256": "f2f501f39725cdb42cad4d386ad7cc4cc94008258fe979777c512c4cdf3389e0",
+      "arm": "extension-multi-cluster"
+    },
+    {
+      "dataset_id": "openml_page-blocks_30_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 30,
+        "name": "page-blocks",
+        "version": 1,
+        "openml_md5": "7883524a483cd354918d3e20c0b5842d"
+      },
+      "expected_rows": 5473,
+      "expected_features": 10,
+      "expected_classes": 5,
+      "expected_content_sha256": "4e4460877f52715d262335f518f068001e3ea40aca56ddc9e9c0fb73d357b195",
+      "arm": "extension-imbalance"
+    },
+    {
+      "dataset_id": "openml_kc1_1067_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 1067,
+        "name": "kc1",
+        "version": 1,
+        "openml_md5": "bcc004464934075ecaf54d84e45c427a"
+      },
+      "expected_rows": 2109,
+      "expected_features": 21,
+      "expected_classes": 2,
+      "expected_content_sha256": "04ed7df35af94d9dceb1280220122f6ad2981b43405d810245fc18c877ae4007",
+      "arm": "extension-imbalance"
+    },
+    {
+      "dataset_id": "openml_magictelescope_1120_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 1120,
+        "name": "MagicTelescope",
+        "version": 1,
+        "openml_md5": "f6dee76810bd7211716fee7b2b0317cb"
+      },
+      "expected_rows": 19020,
+      "expected_features": 10,
+      "expected_classes": 2,
+      "expected_content_sha256": "8fe8883dedceb2c431b5761e1bf6b45caf225d39e83d74bfe997dc1df90592ac",
+      "arm": "extension-large-n"
+    },
+    {
+      "dataset_id": "openml_pendigits_32_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 32,
+        "name": "pendigits",
+        "version": 1,
+        "openml_md5": "6e472ab352f3f62cc4087dc78eda8d3d"
+      },
+      "expected_rows": 10992,
+      "expected_features": 16,
+      "expected_classes": 10,
+      "expected_content_sha256": "3f1913dbcb833a62ecd97be9fbd7f5f44584cae0f5d8ed81f9015d582a2e4302",
+      "arm": "extension-multi-cluster"
+    },
+    {
+      "dataset_id": "openml_cmc_23_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 23,
+        "name": "cmc",
+        "version": 1,
+        "openml_md5": "3149646ecff276abac3e892d1556655f"
+      },
+      "expected_rows": 1473,
+      "expected_features": 9,
+      "expected_classes": 3,
+      "expected_content_sha256": "7fc62015091bb2bf7d4f2a918a3bf9292261dff6ad16cdcde56905c8a27fc74f"
+    }
+  ],
+  "split": {
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "train_fraction": 0.8,
+    "max_support_size": 512,
+    "max_query_size": 128,
+    "min_support_per_class": 20,
+    "min_query_per_class": 8,
+    "selection": "deterministic stratified holdout without replacement; query rows are first sampled from the 20 percent holdout, and support rows are sampled only from the remaining train pool"
+  },
+  "smoke": {
+    "dataset_id": "sklearn_breast_cancer",
+    "seed": 17,
+    "max_support_size": 64,
+    "max_query_size": 24,
+    "smoke_epochs": 5,
+    "smoke_note": "Frozen smoke contract: one frozen dataset/seed at reduced caps, all eight Week 10 methods at smoke epochs. Covers every code path (student, SupCon, MLP, PCA, hidden bridge, readout-profile, fusion). No scientific gate in smoke."
+  },
+  "teacher": {
+    "n_estimators": 1,
+    "device": "cuda",
+    "model_cache_dir": "<MODEL_CACHE_DIR>"
+  },
+  "methods": {
+    "route": "Route B winner as single Readout2Rep representative: Week 9 global winner beta-rank static qk64 dual-space Q/K, s=q.k/sqrt(64), no adapter, no DeepSets; plus matched SupCon+student late-fusion control (plan Section 9 SupCon+Readout). Frozen Week 9 winner input: beta-rank_qk64_static global spearman 0.3541, best of the 18-cell grid.",
+    "student": {
+      "cell": "beta-rank_qk64_static",
+      "target": "beta",
+      "loss": "rank",
+      "qk_dim": 64,
+      "variant": "static",
+      "backbone": "numerical standardized MLP (support-only mean/variance; queries reuse frozen support statistics); hidden 128, h 128 (plan Section 8)",
+      "hidden_dims": [
+        128
+      ],
+      "hidden_activation": "relu",
+      "h_dim": 128,
+      "score": "s_ij = q_i . k_j / sqrt(64); no q/k normalization in v1",
+      "score_temperature": 1.0,
+      "standardization": "standardize with pseudo-support mean/variance only; pseudo-queries, full support and holdout queries reuse those frozen statistics",
+      "optimizer": "adam",
+      "learning_rate": 0.001,
+      "epochs": 50,
+      "smoke_epochs": 5,
+      "batch": "full-batch over pseudo-queries",
+      "seed": 0,
+      "train_device": "cpu",
+      "train_device_rationale": "training sets are tiny (at most 64 pseudo-queries); CPU training is fast and deterministic with fixed seeds, while the Teacher still runs on CUDA",
+      "pseudo_query_fraction": 0.2,
+      "max_pseudo_queries": 64,
+      "min_pseudo_queries": 8,
+      "pseudo_query_seed": 20260914,
+      "pseudo_query_selection": "label-blind seeded choice without replacement from frozen support order, sorted back into support order"
+    },
+    "supcon": {
+      "purpose": "matched-budget symmetric baseline: same optimizer/epochs/learning-rate/seed budget and same 64-dim output width; backbone width matched at 128; heads differ by design (symmetric cosine vs directed Q/K), so this is budget-matched, not weight-identical",
+      "hidden_dims": [
+        128
+      ],
+      "embedding_dim": 64,
+      "temperature": 0.07,
+      "learning_rate": 0.001,
+      "epochs": 50,
+      "smoke_epochs": 5,
+      "batch_size": 256,
+      "seed": 0,
+      "train_device": "cpu",
+      "standardization": "standardize with support mean and variance only; query rows use the frozen support statistics",
+      "positives": "same-class in-batch samples without input augmentation; anchors without a positive are excluded from the loss"
+    },
+    "fusion": {
+      "method": "late-fusion rank average of frozen student scores and frozen SupCon cosine similarities (no extra training)",
+      "description": "Per eval query, rank supports by student score and by SupCon cosine separately (average-tie ranks), average the two rank vectors, re-rank. Metric-only control for plan Section 9 SupCon+Readout."
+    },
+    "classical": {
+      "raw": "Euclidean distance on frozen standardized features (support mean/variance; queries reuse them); score = negative distance.",
+      "pca": "PCA(n_components=min(32, n_features, n_support-1)) fit on pseudo-support only; score = negative Euclidean distance in PCA space.",
+      "mlp": "Supervised MLP classifier on pseudo-support only: hidden 128 ReLU, 50 full-batch Adam epochs lr 0.001 seed 0 CPU; score = negative Euclidean distance between penultimate-layer embeddings of query and supports."
+    },
+    "teacher_derived": {
+      "hidden": "TabPFN shadow-model aggregated hidden embeddings (fit_preprocessors role, mean over estimator axis): cosine similarity query-vs-support. Requires the Week 1 Teacher bridge embedding path.",
+      "readout_profile": "Decoder readout profile baseline, all Teacher-side, no training. Support profiles: TRAIN-fit alpha rows of each pseudo-support row held out as query over the pseudo-support columns. Query profiles: EVAL-fit alpha rows restricted to the same pseudo-support columns. Score = cosine similarity between profiles. Unavailable with reason when a column is missing."
+    }
+  },
+  "evaluation": {
+    "support": "full frozen support",
+    "queries": "every frozen holdout query row",
+    "teacher_target_for_eval": "eval-fit true-class beta block and eval-fit mean raw true-class block",
+    "ks": [
+      1,
+      5,
+      10
+    ],
+    "metrics": [
+      "teacher_topk_recall@1/5/10 per method (method scores vs teacher true-class top-K)",
+      "spearman(method scores, teacher beta) per query",
+      "spearman(method scores, teacher mean-raw) per query (diagnostic, same aggregation)",
+      "label top-1/top-5 hit rate over full support (labels for metric only)",
+      "NDCG@10 of method ranking against teacher beta relevance (diagnostic)",
+      "mean rank of teacher top-1 support row inside method ranking (diagnostic)"
+    ],
+    "seed_aggregation": "mean over eval queries",
+    "dataset_aggregation": "median over seeds 17/29/43",
+    "global_summary": "mean over the twenty frozen datasets (descriptive only)",
+    "win_tie_loss": "per-dataset winner by spearman_vs_beta_median with tie tolerance 1e-9 (exact ties only); counts reported per method in the markdown report; descriptive only",
+    "leakage_boundary": "student training sees pseudo-support/pseudo-query features and train-split labels only; every eval Teacher fit receives support features, support labels, and holdout query features alone; holdout query labels are released only for metric computation; classical/MLP/PCA/SupCon/student train on pseudo-support/pseudo-query features and train-split labels only; hidden/readout-profile/fusion use Teacher outputs only; holdout query labels are released only for metric computation"
+  },
+  "gate": {
+    "type": "descriptive-completion",
+    "decision": "benchmark_v1_complete",
+    "rule": "technical PASS requires every frozen dataset/seed/method executed, finite metrics, recomputable evidence, and intact provenance; the gate makes no method claim and moves no threshold",
+    "recommendation": "BENCHMARK_V1_COMPLETE Proceed to Week 11 faithfulness scoping with the Week 10 table as input"
+  }
+}

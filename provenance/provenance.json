@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "recommended_route": "Route B: Static Directed with simple context adapter first",
+  "context_authorized": true,
+  "context_manifest_id": "predrel-context-v1",
+  "context_manifest_sha256": "6b70a41fcaf6f5d9d3260279a427293cbddd843f5efc6b9ad1b407857bbb695e",
+  "student_manifest_id": "predrel-student-v1",
+  "student_manifest_sha256": "ba644f6f48726531704eef355a29fd0f2dff4549462e5210743b9b39620fa434",
+  "student_claim_baseline": {
+    "cell": "beta-KLrank_qk64_static",
+    "static_spearman": 0.19296640914445426,
+    "supcon_spearman": 0.4822505819959224
+  },
+  "ablation_manifest_id": "predrel-ablation-v1",
+  "ablation_manifest_sha256": "a83b217ed04363685bb86bd9ed9a97f378d94aa8465d38eca5107e7a61c2e364",
+  "benchmark_manifest_id": "predrel-benchmark-v1",
+  "benchmark_manifest_sha256": "7ffb7ba287766e6b4c7b015638d740a7e177ae816dc865cba1f0251967215a10",
+  "benchmark_winner_cell": "beta-rank_qk64_static",
+  "teacher_source_sha256": "b6575e5b280e134b121d69c5b09d19d1dee3c72e0a231a7a8e6e6048ee643dc4"
+}

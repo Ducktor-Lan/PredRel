@@ -1,0 +1,19 @@
+schema_version: 1
+transport:
+  host: <SERVER_HOST>
+  port: <SSH_PORT>
+  user: <SSH_USER>
+  key_based_only: true
+  strict_host_key_checking: true
+  scp_legacy_mode: true
+runtime:
+  conda_environment: base
+  remote_root: '<REMOTE_ROOT>'
+  remote_transfer_root: '<REMOTE_ROOT>/transfer'
+  shared_week01_snapshot: '<REMOTE_ROOT>/snapshots/<WEEK01_SNAPSHOT_SHA>'
+  shared_week07_evidence: '<REMOTE_ROOT>/week07-anatomy-<RUN_ID>/evidence'
+  shared_week08_evidence: '<REMOTE_ROOT>/week08-full-<RUN_ID>/evidence'
+  shared_week09_evidence: '<REMOTE_ROOT>/week09-full-<RUN_ID>/evidence'
+  model_cache_dir: '<REMOTE_ROOT>/cache/tabpfn-v3'
+  dataset_cache_dir: '<REMOTE_ROOT>/cache/week10-real-datasets'
+  seed_dataset_cache_dir: '<REMOTE_ROOT>/cache/week9-real-datasets'

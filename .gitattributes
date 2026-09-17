@@ -1,0 +1,5 @@
+# Full row-level evidence is distributed via releases, not git objects.
+docs/results/*.json filter=lfs diff=lfs merge=lfs -text
+# Keep LF on checkout: source_manifest.py hashes raw bytes, so CRLF
+# conversion (Windows core.autocrlf=true) would break `verify`.
+* text=auto eol=lf

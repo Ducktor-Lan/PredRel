@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "manifest_id": "predrel-context-v1",
+  "purpose": "Frozen Week 6 context-sensitivity gate. It reuses the exact nine dataset content pins and split contract from the completed Week 5 full experiment. For each fixed held-out query and fixed support anchors, it replaces only the non-anchor background context. Alpha and aligned pre-softmax scores are retained separately so softmax competition is never misreported as a raw-score context shift.",
+  "preprocessing": {
+    "feature_policy": "numeric-only float64; reject non-finite values; no imputation, feature selection, or target-derived transform",
+    "label_policy": "encode observed target labels deterministically after loading; support labels may enter Teacher contexts; query labels never enter a Teacher fit",
+    "sample_id_policy": "source row index is retained as dataset_id:row:<index>"
+  },
+  "datasets": [
+    {
+      "dataset_id": "sklearn_breast_cancer",
+      "source": {
+        "kind": "sklearn_builtin",
+        "loader": "load_breast_cancer",
+        "source_version": "scikit-learn-1.9.1"
+      },
+      "expected_rows": 569,
+      "expected_features": 30,
+      "expected_classes": 2,
+      "expected_content_sha256": "17a561dca8f46aa20420dab2e09abad32c3d16e010bbce76d8ddc85a9db250d7"
+    },
+    {
+      "dataset_id": "sklearn_wine",
+      "source": {
+        "kind": "sklearn_builtin",
+        "loader": "load_wine",
+        "source_version": "scikit-learn-1.9.1"
+      },
+      "expected_rows": 178,
+      "expected_features": 13,
+      "expected_classes": 3,
+      "expected_content_sha256": "12993669681f41243c08c8ac3f9a2d983fd1fb158f9e0961fd221d4ea55839d1"
+    },
+    {
+      "dataset_id": "sklearn_digits",
+      "source": {
+        "kind": "sklearn_builtin",
+        "loader": "load_digits",
+        "source_version": "scikit-learn-1.9.1"
+      },
+      "expected_rows": 1797,
+      "expected_features": 64,
+      "expected_classes": 10,
+      "expected_content_sha256": "9c15de2983c4a7fb75453895d543ddfa8edc001c851fc0957b899996204e61db"
+    },
+    {
+      "dataset_id": "openml_diabetes_37_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 37,
+        "name": "diabetes",
+        "version": 1,
+        "openml_md5": "3cbaa3e54586aa88cf6aacb4033e4470"
+      },
+      "expected_rows": 768,
+      "expected_features": 8,
+      "expected_classes": 2,
+      "expected_content_sha256": "f933e03cd5f2c13a0b6a72be9070b7fe6a651b6b9efc3f0039c852ea97e10166"
+    },
+    {
+      "dataset_id": "openml_vehicle_54_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 54,
+        "name": "vehicle",
+        "version": 1,
+        "openml_md5": "fbba18157b188f309d772f9ca4e578f5"
+      },
+      "expected_rows": 846,
+      "expected_features": 18,
+      "expected_classes": 4,
+      "expected_content_sha256": "23949690de5b80f31365c9bb90f3d83f1ba09d43418f803fc2ac93396b969e12"
+    },
+    {
+      "dataset_id": "openml_spambase_44_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 44,
+        "name": "spambase",
+        "version": 1,
+        "openml_md5": "d9ace01aeac3461e326a8e1b2d53fd84"
+      },
+      "expected_rows": 4601,
+      "expected_features": 57,
+      "expected_classes": 2,
+      "expected_content_sha256": "6a5c7203096f8d575c3e35f5461ac15aa41c1b5b79903d5e8bf5a73ce01eefbf"
+    },
+    {
+      "dataset_id": "openml_blood_1464_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 1464,
+        "name": "blood-transfusion-service-center",
+        "version": 1,
+        "openml_md5": "c3242468edab8c2e7a907674122dc851"
+      },
+      "expected_rows": 748,
+      "expected_features": 4,
+      "expected_classes": 2,
+      "expected_content_sha256": "668275fcd4aa505c761cbde0477f12c01ad830bf986c3b731dca4813385a8167",
+      "arm": "extension-imbalance"
+    },
+    {
+      "dataset_id": "openml_ionosphere_59_v1",
+      "source": {
+        "kind": "openml",
+        "data_id": 59,
+        "name": "ionosphere",
+        "version": 1,
+        "openml_md5": "23dd3c8b5693e2848901fd1a0248ef42"
+      },
+      "expected_rows": 351,
+      "expected_features": 34,
+      "expected_classes": 2,
+      "expected_content_sha256": "4e67aa079e1f0151f42fbd1603a64aabd6ed5f0c710460474f7bbabfcfe59271",
+      "arm": "extension-highdim-small"
+    },
+    {
+      "dataset_id": "openml_segment_40984_v3",
+      "source": {
+        "kind": "openml",
+        "data_id": 40984,
+        "name": "segment",
+        "version": 3,
+        "openml_md5": "dc39e654f66a5a4007012e74ef3f1435"
+      },
+      "expected_rows": 2310,
+      "expected_features": 18,
+      "expected_classes": 7,
+      "expected_content_sha256": "692a6722ffdc1096578be22c1a6fe1bad9f67d94d44c3af191b4dd32d14f56dc",
+      "arm": "extension-multi-cluster"
+    }
+  ],
+  "split": {
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "train_fraction": 0.8,
+    "max_support_size": 512,
+    "max_query_size": 128,
+    "min_support_per_class": 20,
+    "min_query_per_class": 8,
+    "selection": "deterministic stratified holdout without replacement; query rows are first sampled from the 20 percent holdout, and support rows are sampled only from the remaining train pool"
+  },
+  "smoke": {
+    "dataset_id": "sklearn_breast_cancer",
+    "seed": 17,
+    "max_support_size": 64,
+    "max_query_size": 24
+  },
+  "teacher": {
+    "n_estimators": 1,
+    "device": "cuda",
+    "model_cache_dir": "<MODEL_CACHE_DIR>"
+  },
+  "context": {
+    "query_count": 8,
+    "smoke_query_count": 1,
+    "anchor_count": 8,
+    "context_count": 12,
+    "smoke_context_count": 3,
+    "context_size": 64,
+    "smoke_context_size": 32,
+    "anchor_top_k": 3,
+    "sampling_seed": 20260912,
+    "query_selection": "label-blind seeded sample without replacement from the frozen holdout query order",
+    "anchor_selection": "deterministic support-label round-robin over the frozen support order; fixed anchors are present in every context",
+    "background_selection": "for each context, sample without replacement from non-anchor support rows with the same frozen proportional per-class quota; only background IDs change across contexts",
+    "support_order": "each context is sorted by original frozen support position before the Teacher fit",
+    "raw_score_aggregation": "retain every exact [estimator, head] raw-score surface; compute ranking metrics per surface and macro-average them. ReadoutExtraction.mean_raw_scores is retained only as a secondary diagnostic",
+    "alpha_analysis": "record full alpha and anchor mass; normalize alpha only within the fixed anchor universe for cross-context anchor ranking diagnostics",
+    "leakage_boundary": "every Teacher fit receives support features, support labels, support IDs, query features, and query IDs only; query labels are never passed to the bridge or released to a Teacher fit",
+    "required_records": [
+      "alpha",
+      "raw_scores",
+      "headwise_anchor_raw_conditional",
+      "pairwise_raw_score_differences",
+      "raw_ranking",
+      "anchor_alpha_normalized"
+    ],
+    "controls": {
+      "repeat_context_index": 0,
+      "repeat_for_each_fixed_query": true,
+      "order_control": "for the first label-blind selected query in every dataset/seed, rerun context zero with its support rows reversed and compare only ID-aligned anchors. Version 2 replaces the v1 elementwise raw absolute tolerance with relation-level invariants plus gross-error numeric guardrails; the v1 elementwise threshold sat below the measured cross-order float-accumulation noise floor of this environment",
+      "alpha_atol": 1e-06,
+      "raw_atol": 1e-05,
+      "raw_atol_scope": "same-context repeat control only in v2; the reversed-support-order control no longer uses an elementwise raw tolerance",
+      "order_relation_checks": {
+        "pairwise_preference_flip_rate_max": 0.0,
+        "per_surface_kendall_tau_min": 1.0,
+        "per_surface_top_k_jaccard_min": 1.0,
+        "anchor_argmax_must_not_change": true,
+        "nan_policy": "a surface with no comparable non-tied pairs reports NaN and passes vacuously; NaN surfaces are recorded in the control record for audit"
+      },
+      "order_numeric_guardrails": {
+        "raw_scale_relative_max": 0.0001,
+        "note": "scale-free gross-error tripwire only. Calibration evidence: cross-order raw noise is scale-relative 1.7-2.4e-6 at smoke scale (32 rows, order-audit week06-order-audit-aa60b3b62082-2e6591d4) and 7.2-8.4e-6 at full 512-support scale (probe week06-v2-probe-6dbe4437b649-65a2f115), while absolute noise grows ~11x from 32 to 512 rows (2.4e-5 -> 2.7e-4), so the v2 absolute guardrail (1e-4) was miscalibrated and is replaced by the scale-relative bound; relation-level invariants held exactly at both scales"
+      },
+      "purpose": "reject run-to-run stochasticity or support-row order as an explanation for composition-induced shifts, using relation-level invariants on the invariant anchor universe",
+      "alpha_atol_scope": "same-context repeat control only since v4; the order control evaluates alpha through relation-level invariants",
+      "order_alpha_checks": {
+        "normalized_share_preference_flip_rate_max": 0.0,
+        "normalized_share_flip_epsilon": 0.0001,
+        "note_on_dead_zone": "normalized shares are probabilities in [0,1]; the 1e-4 dead zone exceeds the measured cross-order share noise (<=7e-6 at 512 support rows) by >14x, so stochasticity cannot flip a comparable pair by construction",
+        "anchor_alpha_argmax_must_not_change_when_decisive": true,
+        "decisive_share_gap": 0.0001,
+        "anchor_alpha_total_relative_max": 0.001,
+        "anchor_alpha_abs_max": 0.0001,
+        "calibration": "order-audit (smoke, 32 rows): alpha elementwise <=1.1e-7; full sweep (27 combos, 512 rows): alpha elementwise <=2.0e-6, anchor-total relative drift <=4.5e-5, normalized-share ranking identical everywhere measured"
+      }
+    }
+  },
+  "metrics": {
+    "epsilon": 1e-12,
+    "pairwise_comparison": "all unordered pairs in the fixed anchor universe",
+    "cross_context_metrics": [
+      "mean_anchor_alpha_std",
+      "mean_anchor_raw_score_std",
+      "mean_pairwise_raw_difference_std",
+      "mean_pair_alpha_top_k_jaccard",
+      "mean_pair_raw_top_k_jaccard",
+      "mean_pair_alpha_kendall_tau",
+      "mean_pair_raw_kendall_tau",
+      "mean_pair_alpha_spearman",
+      "mean_pair_raw_spearman",
+      "mean_alpha_preference_flip_rate_vs_first",
+      "mean_raw_preference_flip_rate_vs_first"
+    ],
+    "scientific_primary_metrics": "raw-score anchor ranking and pairwise raw-score differences; alpha-only movement is reported as softmax competition evidence, not as a context-shift claim"
+  },
+  "gate": {
+    "aggregation": "for each query, summarize all contexts; per-seed value is the median of fixed-query summaries; per-dataset value is the median across seeds; global route uses a strict majority of the nine dataset regimes",
+    "weak": {
+      "min_raw_kendall_tau": 0.9,
+      "min_raw_spearman": 0.9,
+      "min_raw_top_k_jaccard": 0.8,
+      "max_raw_preference_flip_rate": 0.1,
+      "rule": "all four raw ranking-stability conditions"
+    },
+    "strong": {
+      "max_raw_kendall_tau": 0.6,
+      "max_raw_spearman": 0.6,
+      "max_raw_top_k_jaccard": 0.5,
+      "min_raw_preference_flip_rate": 0.25,
+      "minimum_trigger_count": 2,
+      "rule": "at least two raw ranking-instability conditions; alpha-only instability never triggers strong context"
+    },
+    "weak_route": "STATIC_REPRESENTATION_CANDIDATE; Week 5 was mixed, so Week 7 must still resolve static symmetric versus directed",
+    "moderate_route": "CONTEXT_ADAPTER_CANDIDATE; use a simple context adapter before a full context-conditioned model",
+    "strong_route": "CONTEXT_CONDITIONED_DIRECTED_CANDIDATE; first context encoder must be DeepSets",
+    "global_decision_values": [
+      "weak_context_static_candidate",
+      "moderate_context_adapter_candidate",
+      "strong_context_conditioned_candidate"
+    ]
+  }
+}
